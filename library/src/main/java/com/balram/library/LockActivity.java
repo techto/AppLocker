@@ -42,12 +42,12 @@ public class LockActivity extends AppLockerActivity {
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			String message = extras.getString(AppLock.MESSAGE);
+			String message = extras.getString(Locker.MESSAGE);
 			if (message != null) {
 				tvMessage.setText(message);
 			}
 
-			type = extras.getInt(AppLock.TYPE, -1);
+			type = extras.getInt(Locker.TYPE, -1);
 		}
 
 		filters = new InputFilter[2];
@@ -98,16 +98,16 @@ public class LockActivity extends AppLockerActivity {
 
 		switch (type) {
 
-		case AppLock.DISABLE_PASSLOCK:
+		case Locker.DISABLE_PASSLOCK:
 			this.setTitle("Disable Passcode");
 			break;
-		case AppLock.ENABLE_PASSLOCK:
+		case Locker.ENABLE_PASSLOCK:
 			this.setTitle("Enable Passcode");
 			break;
-		case AppLock.CHANGE_PASSWORD:
+		case Locker.CHANGE_PASSWORD:
 			this.setTitle("Change Passcode");
 			break;
-		case AppLock.UNLOCK_PASSWORD:
+		case Locker.UNLOCK_PASSWORD:
 			this.setTitle("Unlock Passcode");
 			break;
 		}
@@ -130,7 +130,7 @@ public class LockActivity extends AppLockerActivity {
 
 		switch (type) {
 
-		case AppLock.DISABLE_PASSLOCK:
+		case Locker.DISABLE_PASSLOCK:
 			if (AppLocker.getInstance().getAppLock().checkPasscode(passLock)) {
 				setResult(RESULT_OK);
 				AppLocker.getInstance().getAppLock().setPasscode(null);
@@ -140,7 +140,7 @@ public class LockActivity extends AppLockerActivity {
 			}
 			break;
 
-		case AppLock.ENABLE_PASSLOCK:
+		case Locker.ENABLE_PASSLOCK:
 			if (oldPasscode == null) {
 				tvMessage.setText(R.string.reenter_passcode);
 				oldPasscode = passLock;
@@ -158,16 +158,16 @@ public class LockActivity extends AppLockerActivity {
 			}
 			break;
 
-		case AppLock.CHANGE_PASSWORD:
+		case Locker.CHANGE_PASSWORD:
 			if (AppLocker.getInstance().getAppLock().checkPasscode(passLock)) {
 				tvMessage.setText(R.string.enter_passcode);
-				type = AppLock.ENABLE_PASSLOCK;
+				type = Locker.ENABLE_PASSLOCK;
 			} else {
 				onPasscodeError();
 			}
 			break;
 
-		case AppLock.UNLOCK_PASSWORD:
+		case Locker.UNLOCK_PASSWORD:
 			if (AppLocker.getInstance().getAppLock().checkPasscode(passLock)) {
 				setResult(RESULT_OK);
 				finish();
@@ -183,7 +183,7 @@ public class LockActivity extends AppLockerActivity {
 
 	@Override
 	public void onBackPressed() {
-		if (type == AppLock.UNLOCK_PASSWORD) {
+		if (type == Locker.UNLOCK_PASSWORD) {
 			// back to home screen
 			Intent intent = new Intent();
 			intent.setAction(Intent.ACTION_MAIN);

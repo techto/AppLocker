@@ -7,7 +7,7 @@ import java.util.HashSet;
  * Created by Balram Pandey 12/11/16.
  */
 
-public abstract class AppLock {
+public abstract class Locker {
 	public static final int ENABLE_PASSLOCK = 0;
 	public static final int DISABLE_PASSLOCK = 1;
 	public static final int CHANGE_PASSWORD = 2;
@@ -25,7 +25,7 @@ public abstract class AppLock {
 		this.lockTimeOut = timeout;
 	}
 
-	public AppLock() {
+	public Locker() {
 		ignoredActivities = new HashSet<String>();
 		lockTimeOut = DEFAULT_TIMEOUT;
 	}

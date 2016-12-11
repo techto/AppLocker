@@ -5,7 +5,7 @@ import android.app.Application;
 public class AppLocker {
 
 	private volatile static AppLocker instance;
-	private AppLock curAppLocker;
+	private Locker curAppLocker;
 
 	public static AppLocker getInstance() {
 		synchronized (AppLocker.class) {
@@ -31,14 +31,14 @@ public class AppLocker {
 		}
 	}
 
-	public void setAppLock(AppLock appLocker) {
+	public void setAppLock(Locker appLocker) {
 		if (curAppLocker != null) {
 			curAppLocker.disable();
 		}
 		curAppLocker = appLocker;
 	}
 
-	public AppLock getAppLock() {
+	public Locker getAppLock() {
 		return curAppLocker;
 	}
 }

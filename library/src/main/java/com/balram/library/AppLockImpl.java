@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class AppLockImpl extends AppLock implements PageListener {
+public class AppLockImpl extends Locker implements PageListener {
 	public static final String TAG = "DefaultAppLock";
 
 	private static final String PASSWORD_PREFERENCE_KEY = "passcode";
@@ -97,7 +97,7 @@ public class AppLockImpl extends AppLock implements PageListener {
 		// already unlock
 		if (activity instanceof LockActivity) {
 			LockActivity ala = (LockActivity) activity;
-			if (ala.getType() == AppLock.UNLOCK_PASSWORD) {
+			if (ala.getType() == Locker.UNLOCK_PASSWORD) {
 				Log.d(TAG, "already unlock activity");
 				return false;
 			}
@@ -147,7 +147,7 @@ public class AppLockImpl extends AppLock implements PageListener {
 		if (shouldLockSceen(activity)) {
 			Intent intent = new Intent(activity.getApplicationContext(),
 					LockActivity.class);
-			intent.putExtra(AppLock.TYPE, AppLock.UNLOCK_PASSWORD);
+			intent.putExtra(Locker.TYPE, Locker.UNLOCK_PASSWORD);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			activity.getApplication().startActivity(intent);
 		}
